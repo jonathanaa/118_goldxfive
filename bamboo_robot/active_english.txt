@@ -1,0 +1,4 @@
+D:
+cd D:\AppServ\www\118\bamboo_robot\english_jieba
+activate venv_demo
+python english_NLP.py

@@ -1,0 +1,29 @@
+﻿
+<div>
+	<!--<button onclick="voiceDetect()">語音辨識</button>
+	<button onclick="nopeople()">沒有人123</button>-->
+	<script>
+		function nopeople(){
+			$.get(advertisement_1, function(data) {
+	  			//optional stuff to do after success
+	  			$('#advertisement_1').html(data);
+	  			$('#advertisement_1').css('display','block');
+	  			$('#advertisement_2').html("");
+			});
+			var data = '{"type":"leave","name":'+'"web"'+'}';
+            ws.send(data);
+		}
+		function voiceDetect(){
+			$.get(advertisement_2+'?voiceText=我想要買竹杯子', function(data) {
+	  			//optional stuff to do after success
+	  			$('#advertisement_1').html(data);
+	  			$('#advertisement_1').css('display','block');
+	  			$('#advertisement_2').html("");
+			});
+			/*var data = '{"type":"leave","name":'+'"web"'+'}';
+            ws.send(data);*/
+		}
+		
+
+	</script>
+</div> 

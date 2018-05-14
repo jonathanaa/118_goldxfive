@@ -1,0 +1,1 @@
+PL-2303 (H, HX, X chip version) Mac OS 8 & 9 driver v1.3.6 build 1, Prolific Edition

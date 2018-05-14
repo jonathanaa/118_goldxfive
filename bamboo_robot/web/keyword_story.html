@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<title></title>
+</head>
+<body>
+<!--{foreach item=index from=$keyid}
+字:{$index.word}
+詞性: {$index.type}<br>
+{/foreach}-->
+<section id="two" class="wrapper style2 alt">
+<div class="inner">
+{foreach item=index2 from=$output}
+<div class=goods>
+<div class="spotlight">
+<div class="content">
+<h3>第{$index2.number}筆</h3><br>
+<div class=goodsid>
+<h3>{$index2.idname}</h3><br></div>
+<h3>產品名稱: {$index2.name}</h3><br>
+<p>產品描述:</p><br> <p>{$index2.des}</p><br>
+<p>符合關鍵字個數: {$index2.keynum}</p><br><br>
+</div>
+</div>
+</div>
+{/foreach}
+</div>
+</section>
+<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+</body>
+</html>

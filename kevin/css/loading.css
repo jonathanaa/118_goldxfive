@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/**
+ * 
+ * @authors 谢志强 (594613537)
+ * @date    2016-05-18 01:14:13
+ * @version v1.0.0
+ */
+
+.loader{width:200px;height:200px;float:left;display:-webkit-flex;/*safari弹性布局*/justify-content:center;display:flex;align-items:center;}
+
+@-webkit-keyframes loader21{
+	0%{-webkit-transform:scale(1,1);}
+	100%{-webkit-transform:scale(1,0.3);}
+}
+.loader-21 div{width:5px;height:35px;border-radius:2px;display:inline-block;}
+.loader-21 div:nth-child(1){-webkit-animation:loader21 0.5s -0.3s ease-in-out infinite alternate;background:#42801f}
+.loader-21 div:nth-child(2){-webkit-animation:loader21 0.5s -0.15s ease-in-out infinite alternate;background:#2d5917;}
+.loader-21 div:nth-child(3){-webkit-animation:loader21 0.5s 0s ease-in-out infinite alternate;background:#6fbf3b;}
+.loader-21 div:nth-child(4){-webkit-animation:loader21 0.5s -0.15s ease-in-out infinite alternate;background:#70c578;}
+.loader-21 div:nth-child(5){-webkit-animation:loader21 0.5s -0.4s ease-in-out infinite alternate;background:#42801f;}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<style>
+#frm1{
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:0;
+    height: 100vh;
+}
+#frm2{
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:-1;
+    height: 100vh;
+    display: none;
+}
+div{
+	display: block;
+	height: 100vh;
+}
+</style>
+</head>
+<body>
+<!--<div style="width: 600px;height: 500px;margin: 30px auto;text-align: center">
+<h1>websocket聊天系统</h1>
+<textarea id="msg" rows="6" cols="50"></textarea><br>
+<input type="button" value="发送" onclick="send()">
+<div id="list" style="width: 500px;border:  1px solid gray; height: 300px;margin: 10px auto;overflow: auto;">
+	
+</div>
+</div>-->
+<div>
+<iframe src="http://www.eyny.com/video.php" width="100%" frameborder="0" name="frm1" id="frm1"></iframe>
+<iframe src="http://www.ec.ccu.edu.tw/usr/bamboo/" width="100%" frameborder="0" name="frm2" id="frm2"></iframe>
+<!--<h1 id="change">這裡是廣告</h1>-->
+</div>
+<button id="AnswerBox" style="display: none;" onclick="meclose()" >關閉</button>
+<button id="voicedec" style="display: none;" onclick="javascript:location.href='../../../Dillon/speechtotext/speechToText.html'" >語音偵測</button>
+<audio id="bgMusic">
+    <source = src="../../welcome.mp3" type="audio/mp3">
+</audio> 　
+<script type="text/javascript">
+function meclose() {
+　document.getElementById("frm1").style.display = "none";
+  document.getElementById("frm2").style.display = "block";
+}
+if (window.WebSocket){
+    console.log("This browser supports WebSocket!");
+} else {
+    console.log("This browser does not support WebSocket.");
+}
+	var ws = new WebSocket("ws://127.0.0.1:8000");
+	ws.onopen = function(){
+		console.log('连接成功');
+		var data="系统消息：建立连接成功";
+		list(data);
+		ws.send('11');
+		//document.getElementById("frm1").style.height = (document.documentElement.clientHeight)+"px";
+		//document.getElementById("frm1").style.display = "inline";
+		//document.getElementById("frm2").style.display = "none";
+	}
+	ws.onmessage = function(e){
+		var obj=eval("("+e.data+")");
+		var data=obj.name+"消息:" + obj.mess;
+		document.getElementById("frm1").src="https://www.youtube.com/embed/I1D_qc6xqF0";
+		document.getElementById("AnswerBox").style.display = "block";
+		document.getElementById("voicedec").style.display = "block";
+		var audio = document.getElementById("bgMusic");
+		audio.play();
+		//document.getElementById("frm2").style.height = (document.documentElement.clientHeight)+"px";
+		//document.getElementById("frm1").style.display = "none";
+		//document.getElementById("frm2").style.display = "inline";
+		if(obj.mess=="13")
+			document.getElementById("change").innerHTML="有人來了!!!!!";
+		list(data);
+	}
+	ws.onerror = function(){
+		var data="出错了，请退出重试";
+		list(data);
+	}
+	function send()
+	{
+		var msg=document.getElementById("msg").value;
+		ws.send(msg);
+		// var data="客户端消息："+msg;
+		// list(data);
+		// document.getElementById("msg").value='';
+	}
+	function list(data)
+	{
+		var p=document.createElement("p");
+		p.innerHTML=data;
+		var box=document.getElementById("list");
+		box.appendChild(p);
+		
+	}
+</script>
+</body>
+</html>

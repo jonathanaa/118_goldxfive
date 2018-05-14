@@ -1,0 +1,8 @@
+2018-03-02 14:55:19 Bad request for Register service. Request info(IP:127.0.0.1, Request Buffer:GET / HTTP/1.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 14:55:19 Bad request for Register service. Request info(IP:127.0.0.1, Request Buffer:GET / HTTP/1.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 14:55:24 Bad request for Register service. Request info(IP:127.0.0.1, Request Buffer:GET / HTTP/1.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 21:40:00 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 21:40:00 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 21:46:05 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 21:46:06 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2018-03-02 21:46:06 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail

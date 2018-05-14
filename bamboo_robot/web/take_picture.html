@@ -1,0 +1,186 @@
+<div>
+	<div id = "Stickers_off">
+		<button id= "press_stickers">拍大頭貼請按我</button>
+	</div>
+	<div id = "Stickers_on" style="display: none;">
+		
+		<input id="b" type="button" disabled="true" style="display: none;" value="Take Picture"></input>
+		<canvas id="c" style="display: none;" width="600" height="600"></canvas>
+		
+		<button id="photo_start">start</button>
+		<h1 id="count"></h1>
+		<video id="v" width="600" height="600"></video><!--顯示影像在螢幕-->
+	</div>
+	 <script>
+$(document).ready(function() {
+	var canvas,ctx,$save,$imgW, $imgH,$sel,video,videoTracks;
+/*<<<<<<< HEAD
+	var canvas,ctx,$save,$imgW, $imgH,$sel,video,videoTracks;
+=======
+	var canvas,ctx,$save,$imgW, $imgH,$sel;
+	var video;
+>>>>>>> b9be1203f3be71e7004c087a7a48fba9d23d375a*/
+	var image = new Image();
+	var button_sticker = $('#Stickers').find('#b');
+	image.src = './img/Stickers/frame1.png';//合成圖框
+    canvas = $('#Stickers').find('#c')[0];
+    ctx = canvas.getContext('2d');
+    $save = $('#Stickers').find('#save');
+    $sel = 'jpeg';
+    $imgW = 600;//上傳照片長
+    $imgH = 600;//上傳照片寬
+
+    var time = 3;
+    function minus() {
+      time = time-1;
+    }
+    function final_count(){
+	    $("#count").html(time);
+	    minus();
+	    if(time>=0)
+	    	setTimeout(final_count,1000);
+	    else{
+	    	$('#Stickers').find("#b").click()
+	    	console.log("save&upload");
+	    }
+
+    }
+    $('#Stickers').on('click','#photo_start',function(){
+      final_count();
+      $("#photo_start").hide();
+      //$("#photo_picture").toggleClass = "loaded";
+    });
+
+
+	function getTime(){
+		var bar = "";
+		var output = 0;
+		var now = new Date();
+		bar += now.getMonth()*5;
+		bar += now.getDate()*3;
+		bar += now.getMinutes()*6;
+		bar += now.getSeconds()*16;
+		output = parseInt(bar)%999999;
+		console.log(bar);
+		return(output);
+	}
+	var ver_code;
+    function start_take_a_picture(){
+    	navigator.getUserMedia({video: { width: $imgW, height: $imgH }}, function(stream) {
+/*<<<<<<< HEAD
+			navigator.getUserMedia({video: { width: $imgW, height: $imgH }}, function(stream) {
+=======
+		navigator.getUserMedia({video: { width: $imgW, height: $imgH }}, function(stream) {
+>>>>>>> b9be1203f3be71e7004c087a7a48fba9d23d375a*/
+			video = $('#Stickers').find('#v')[0];
+			video.srcObject = stream;
+			videoTracks=stream.getVideoTracks();
+
+			var playPromise = video.play();
+ 
+		    
+
+			//video.play();
+			button_sticker.disabled = false;
+			button_sticker.on('click',function() {
+				ctx.drawImage(video,0,0,$imgW,$imgH);
+				ctx.drawImage(image,0,0,$imgW,$imgH);
+				var img = canvas.toDataURL("image/jpeg");
+				var type = $sel,
+					w = $imgW,
+					h = $imgH;
+				ver_code = getTime();
+	            Canvas2Image.saveAsImage(canvas, w, h, type,ver_code);
+	            console.log('save!');
+	            console.log(window.stream);
+	            //videoTracks.forEach(function(track) {track.stop()});
+	            stopStreamedVideo(video);
+	            setTimeout(upload,1000);
+	            if (playPromise !== undefined) {
+			    playPromise.then(_ => {
+			      // Automatic playback started!
+			      // Show playing UI.
+			      // We can now safely pause video...
+			      video.pause();
+			    })
+			    .catch(error => {
+			      // Auto-play was prevented
+			      // Show paused UI.
+			    });
+		  	}
+			});
+		}, function(err) { alert("there was an error " + err)});
+	}
+
+	function stopStreamedVideo(videoElem) {
+  let stream = videoElem.srcObject;
+  let tracks = stream.getTracks();
+
+  tracks.forEach(function(track) {
+    track.stop();
+  });
+
+  videoElem.srcObject = null;
+}
+	$save.onclick = function (saveEvent) {
+            var type = $sel,
+                w = $imgW,
+                h = $imgH;
+            Canvas2Image.saveAsImage(canvas, w, h, type);
+            console.log("save one picture");
+    }
+    function upload(){
+    	console.log('upload!');
+    	var data = '{"type":"picuture","name":'+'"web"'+'}';
+        ws.send(data);
+        $.get(line_guide_frame+"?ver_code="+ver_code, function(data) {
+	  		//optional stuff to do after success
+	  		$('#Stickers').html(data);
+		});
+/*<<<<<<< HEAD
+        $.get(line_guide_frame+"?ver_code="+ver_code, function(data) {
+	  		//optional stuff to do after success
+	  		$('#Stickers').html(data);
+		});
+=======
+        video.srcObject.stop();
+>>>>>>> b9be1203f3be71e7004c087a7a48fba9d23d375a*/
+    }
+    $('#Stickers').on('click','#press_stickers',function(){
+    	canvas = null;
+    	ctx = null;
+    	$save = null;
+    	$imgW = null;
+    	$imgH = null;
+    	$sel = null;
+		image = new Image();
+    	time = 3;
+    	button_sticker = $('#Stickers').find('#b');
+		image.src = './img/Stickers/frame1.png';//合成圖框
+    	canvas = $('#Stickers').find('#c')[0];
+    	ctx = canvas.getContext('2d');
+    	$save = $('#Stickers').find('#save');
+    	$sel = 'jpeg';
+    	$imgW = 600;//上傳照片長
+    	$imgH = 600;//上傳照片寬
+    	$("#Stickers_off").css('display','none');
+		$("#Stickers_on").css('display','block');
+		$("#Stickers").css('top','40px');
+		$("#Stickers").css('left','40px');
+		$("#Stickers").css('bottom','40px');
+		$("#Stickers").css('right','40px');
+		$("#Stickers").css('background-color','#ffffff');
+		//$("#stick_name").html('第一步加LINE<br>第二步輸入驗證碼<?php echo $ver_code; ?><br>	第三步恭喜拿到照片<br><button id = "close_sticks">回到瀏覽畫面</button>');
+		/*top:40px;
+	    		left:40px;
+	    		bottom: 40px;
+	    		right: 40px;
+	   			background-color: #ffffff;*/
+		start_take_a_picture();
+    });
+
+});
+
+
+</script>
+</div>

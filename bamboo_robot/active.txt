@@ -1,0 +1,3 @@
+cd C:\xampp\htdocs\118\bamboo_robot\facedetect
+activate venv_demo
+python face_detect_camera.py

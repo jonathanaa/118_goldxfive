@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>takePicture</title>
+		<script src="canvas2image.js"></script>
+		<link rel="stylesheet" type="text/css" href="./css/picture_count.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+	<video id="v" width="600" height="600"></video><!--顯示影像在螢幕-->
+	<input id="b" type="button" disabled="true" value="Take Picture"></input>
+	<canvas id="c" style="display: none;" width="600" height="600"></canvas>
+	<div id = "test"></div>
+	<br>
+
+	<main id = "photo_picture" class = "loaded">
+	    <header>
+	      <div class="loader">
+	        <div class="loader-inner ball-scale">
+	          <div id = "time" align="center" style="font-size:50px;"></div>
+	        </div>
+	      </div>
+	    </header>
+	 </main>
+	<button onclick="photo_start();">start</button>
+	<button onclick="start_take();">e04</button>
+</body>
+
+<script>
+
+    var time = 3;
+    function minus() {
+      time = time-1;
+    }
+    function final_count(){
+	    document.getElementById("time").innerHTML = time;
+	    minus();
+	    if(time>=0)
+	    	setTimeout(final_count,1000);
+	    else{
+	    	$('#b').click()
+	    }
+
+    }
+    function photo_start(){
+      final_count();
+      document.getElementById("photo_picture").className = "loaded";
+    }
+
+  </script>
+
+<script>
+	var canvas,ctx,$save,$imgW, $imgH,$sel;
+	var image = new Image();
+	image.src = 'frame1.png';//合成圖框
+	$('#test').append("jquery is work");
+    //canvas = $('#c');
+    ctx = $('#c')[0].getContext('2d');
+    $save = $('#save');
+    $sel = 'jpeg';
+    $imgW = 600;//上傳照片長
+    $imgH = 600;//上傳照片寬
+    var buffer;
+	function start_take(){
+		navigator.getUserMedia({video: { width: $imgW, height: $imgH }}, function(stream) {
+		var video = document.getElementById("v");
+		var canvas = $('#c')[0];
+		var button = document.getElementById("b");
+		video.srcObject = stream;
+		video.play();
+		button.disabled = false;
+		button.onclick = function() {
+			ctx.drawImage(video,0,0,$imgW,$imgH);
+			ctx.drawImage(image,0,0,$imgW,$imgH);
+			var img = canvas.toDataURL("image/jpeg");
+			var type = $sel,
+				w = $imgW,
+				h = $imgH;
+            Canvas2Image.saveAsImage(canvas, w, h, type,'file3');
+            setTimeout(upload,1000);
+            stopStreamedVideo(video);
+		};
+	}, function(err) { alert("there was an error " + err)});
+	}
+	function stopStreamedVideo(videoElem) {
+  let stream = videoElem.srcObject;
+  let tracks = stream.getTracks();
+
+  tracks.forEach(function(track) {
+    track.stop();
+  });
+
+  videoElem.srcObject = null;
+}
+
+	$save.onclick = function (e) {
+            var type = $sel,
+                w = $imgW,
+                h = $imgH;
+            Canvas2Image.saveAsImage(canvas, w, h, type);
+    }
+    function upload(){
+    	window.location = 'picture.php';
+    }
+</script>
+</html>

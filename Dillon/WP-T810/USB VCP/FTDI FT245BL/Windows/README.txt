@@ -1,0 +1,1 @@
+includes the following versions of the Windows operating system: Windows XP, Windows Server 2003, Windows Vista, Windows Server 2008, Windows 7, Windows Server 2008 R2.

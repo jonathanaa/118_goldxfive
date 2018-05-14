@@ -1,0 +1,87 @@
+<html lang="en">
+
+  <meta charset="UTF-8">
+  <title>輪播廣告Demo</title>
+
+
+  <h1>輪播廣告</h1> 
+  <div id="ad"></div>  
+  <script> 
+   //將圖片連結和超連結這兩個資料分離出來，方便日後維護與新增
+var adData = [{
+    img: 'http://lh3.ggpht.com/UYX3ro5qLZDMyInieR4avSQsmpDVRlbNId4jpGWNzC3sYBh9Ayz1LAoRJciQGECucWXNb0Fzck4VtDqUvvQpLStCA6z2OlwivM09gELP',
+    link: 'http://www.google.com/doodles/first-day-of-summer-2013'
+}, {
+    img: 'http://lh6.ggpht.com/-piIYxGNeFjvr5FUYpNQyYTAvDSoqizlbmdkfWCXXkVoLosT3dZ77nl_tujI8_hLiUwY_SbMS4l7FynmTJWSSjH_0uDWwMLF2WGbgfqA',
+    link: 'http://www.google.com/doodles/50th-anniversary-of-the-i-have-a-dream-speech'
+}, {
+    img: 'http://www.google.com/logos/2010/manuel-de-falla10-hp.gif',
+    link: 'http://www.google.com/doodles/134th-birthday-of-manuel-de-falla'
+}, {
+    img: 'http://www.google.com/logos/2012/olympics-archery-2012-hp.jpg',
+    link: 'http://www.google.com/doodles/archery-2012'
+}];
+
+//製作一個廣告播放器的物件，adPlaceHolder用來放播放廣告容器的id名稱，adData則是廣告的資料陣列
+
+var AdPlayer = function (adPlaceHolder, adData) {
+    var currentElm, placeHolder, adList;
+
+    placeHolder = document.getElementById(adPlaceHolder);
+    adList = adData;
+
+    //將廣告的資料陣列和廣告的HTML內容結合起來
+    renderAd();
+
+    this.start = function () {
+        getAd();
+        setInterval(function () {
+            hideAd();
+            getNewAd(); //其實是getAd的別名，用這種命名來增加程式的自我描述性
+        }, 3000);
+    };
+
+
+    //產生廣告元素
+    function renderAd() {
+        //廣告的HTML內容，做成一個模版，如有需要修改HTML的結構，改這裡，所有的內容就會一起改掉。
+        var template = '<div id="ad-{{no}}" style="display:none"><a href="{{url}}" rel="nofollow"><img src="{{imgPath}}" border="0" width="335" /></a></div>';
+
+        for (var i = 0; i < adList.length; i++) {
+            var adContent = placeHolder.innerHTML;
+            var temp = template; //複製一份template的內容，以免蓋掉模版的內容
+            temp = temp.replace(/{{no}}/, i);
+            temp = temp.replace(/{{url}}/, adList[i].link);
+            temp = temp.replace(/{{imgPath}}/, adList[i].img);
+            adContent += temp;
+            placeHolder.innerHTML = adContent;
+        }
+    }
+
+    //亂數播出一個廣告
+    function getAd() {
+        var no = getRandomNo();
+        currentElm = document.getElementById("ad-" + no);
+        currentElm.style.display = "block";
+    }
+    //相同功能，只是增加程式的描述性
+    var getNewAd = getAd;
+
+    //將播過的廣告隱藏起來 
+    function hideAd() {
+        currentElm.style.display = "none";
+    }
+
+    //亂數號碼產生器
+    function getRandomNo() {
+        var size = adList.length;
+        var no = Math.floor(Math.random() * size);
+        return no;
+    }
+};
+
+window.onload = function(){
+  var player = new AdPlayer("ad", adData);
+  player.start();
+}
+  </script>

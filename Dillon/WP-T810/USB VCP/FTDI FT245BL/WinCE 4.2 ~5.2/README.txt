@@ -1,0 +1,1 @@
+includes the following versions of Windows CE 4.2-5.2 based operating systems: Windows Mobile 2003, Windows Mobile 2003 SE, Windows Mobile 5, Windows Mobile 6, Windows Mobile 6.1 ,Windows Mobile 6.5
